@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959287009111",
+    "project_id": "todolist-60890",
+    "storage_bucket": "todolist-60890.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959287009111:android:48ec0a4b6ba0f0c9ce6812",
+        "android_client_info": {
+          "package_name": "com.example.tarefarecyclerview"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCX4iVfa_LAgvgfQeQBwGgXSSWsvTBa2_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
