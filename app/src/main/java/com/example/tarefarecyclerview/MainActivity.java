@@ -2,9 +2,11 @@ package com.example.tarefarecyclerview;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,12 +31,12 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    ItemAdapter adapter;
-    List<ItemModel> itemList;
+
+    //
     EditText edtTarefa;
     EditText edtDescricao;
     Button btnSalvar;
+    Button btnListaTarefas;
     FirebaseAuth auth;
 
     @Override
@@ -42,21 +44,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        auth = FirebaseAuth.getInstance();
         edtTarefa = findViewById(R.id.edtTarefa);
         edtDescricao = findViewById(R.id.edtDescricao);
         btnSalvar = findViewById(R.id.btnSalvarTarefa);
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemList = new ArrayList<>();
-        buscarTarefas();
-        adapter = new ItemAdapter(this, itemList);
-        recyclerView.setAdapter(adapter);
+        btnListaTarefas = findViewById(R.id.btnListaTarefas);
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 salvarTarefa();
+            }
+        });
+
+        btnListaTarefas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openListaTarefasActivity();
             }
         });
     }
@@ -71,36 +74,11 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("Usuario");
         userRef.child(usuarioId).child("Tarefas").push().setValue(item);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemList.add(item);
-        adapter = new ItemAdapter(this, itemList);
-        recyclerView.setAdapter(adapter);
+        Toast.makeText(getApplicationContext(), "Tarefa salva!", Toast.LENGTH_LONG).show();
     }
 
-    private void buscarTarefas() {
-        String usuarioId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("Usuario");
-        DatabaseReference minhasTarefas = userRef.child(usuarioId).child("Tarefas");
-
-        Query tarefasQuery = minhasTarefas.orderByChild("nome");
-
-        tarefasQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot dados: snapshot.getChildren()) {
-
-                    ItemModel item = dados.getValue(ItemModel.class);
-                    itemList.add(item);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getApplicationContext(), "Erro na busca" + error, Toast.LENGTH_LONG).show();
-            }
-        });
+    private void openListaTarefasActivity() {
+        Intent intent = new Intent(this, ListaTarefasActivity.class);
+        startActivity(intent);
     }
 }

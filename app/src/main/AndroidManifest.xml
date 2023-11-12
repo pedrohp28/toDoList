@@ -13,6 +13,9 @@
         android:theme="@style/Theme.TarefaRecyclerView"
         tools:targetApi="31">
         <activity
+            android:name=".ListaTarefasActivity"
+            android:exported="false" />
+        <activity
             android:name=".CadastroActivity"
             android:exported="false" />
         <activity
