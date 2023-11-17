@@ -45,7 +45,6 @@ public class ItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ItemModel i = item == null ? lista.get(position) : item;
         vh.nomeTextView.setText(i.getNome());
         vh.descricaoTextView.setText(i.getDescricao());
-        vh.key.setText(i.getKey());
     }
 
     public ArrayList<ItemModel> getTarefas() {

@@ -16,6 +16,5 @@ public class ItemVH extends RecyclerView.ViewHolder{
 
         nomeTextView = itemView.findViewById(R.id.nomeTextView);
         descricaoTextView = itemView.findViewById(R.id.descricaoTextView);
-        key = itemView.findViewById(R.id.txtKey);
     }
 }
